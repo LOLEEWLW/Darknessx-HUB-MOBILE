@@ -1,6 +1,6 @@
 --[[
     DARK PREMIUM - MOBILE EDITION (BLOX FRUITS)
-    Fly GUI V3 integrado com controle por analógico
+    FARME AURA COM ESSE HUB MOBILE
 ]]
 
 local Players = game:GetService("Players")
@@ -83,8 +83,7 @@ local infiniteJump = false
 local speedHack = false
 local speedHackValue = 50
 
-local autoClickActive = false
-local autoClickInterval = 0.1
+-- Auto Click REMOVIDO
 local fastAttackActive = false
 local fastAttackInterval = 0.15
 
@@ -1069,7 +1068,7 @@ ClearTargetBtn.MouseButton1Click:Connect(function()
 end)
 
 -- ==========================================
--- PÁGINA UTILS (resumida)
+-- PÁGINA UTILS (AUTO CLICK REMOVIDO)
 -- ==========================================
 
 local PingLabel = Instance.new("TextLabel")
@@ -1082,37 +1081,25 @@ PingLabel.Font = Enum.Font.GothamBold
 PingLabel.TextSize = 13
 PingLabel.Parent = pages.UtilsPage
 
-local AutoClickBtn = createToggleButton("🖱️ AUTO CLICK: OFF", 35, pages.UtilsPage)
-local AutoClickIntervalInput = createInputField("Intervalo (s):", autoClickInterval, 70, pages.UtilsPage)
-local FastAttackBtn = createToggleButton("⚡ FAST ATTACK: OFF", 110, pages.UtilsPage)
-local FastAttackIntervalInput = createInputField("Intervalo (s):", fastAttackInterval, 145, pages.UtilsPage)
+-- Fast Attack (mantido)
+local FastAttackBtn = createToggleButton("⚡ FAST ATTACK: OFF", 35, pages.UtilsPage)
+local FastAttackIntervalInput = createInputField("Intervalo (s):", fastAttackInterval, 70, pages.UtilsPage)
 
-local function updateAutoClickVisual()
-    AutoClickBtn.Text = autoClickActive and "🖱️ AUTO CLICK: ON" or "🖱️ AUTO CLICK: OFF"
-    AutoClickBtn.BackgroundColor3 = autoClickActive and Color3.fromRGB(80, 80, 80) or Color3.fromRGB(30, 30, 30)
-end
 local function updateFastAttackVisual()
     FastAttackBtn.Text = fastAttackActive and "⚡ FAST ATTACK: ON" or "⚡ FAST ATTACK: OFF"
     FastAttackBtn.BackgroundColor3 = fastAttackActive and Color3.fromRGB(80, 80, 80) or Color3.fromRGB(30, 30, 30)
 end
-AutoClickBtn.MouseButton1Click:Connect(function()
-    autoClickActive = not autoClickActive
-    updateAutoClickVisual()
-end)
 FastAttackBtn.MouseButton1Click:Connect(function()
     fastAttackActive = not fastAttackActive
     updateFastAttackVisual()
-end)
-AutoClickIntervalInput.FocusLost:Connect(function()
-    local val = tonumber(AutoClickIntervalInput.Text)
-    if val and val > 0 then autoClickInterval = val end
 end)
 FastAttackIntervalInput.FocusLost:Connect(function()
     local val = tonumber(FastAttackIntervalInput.Text)
     if val and val > 0 then fastAttackInterval = val end
 end)
 
-local extraY = 185
+-- Demais botões (reposicionados)
+local extraY = 110
 local AntiAFKBtn = createToggleButton("🛡️ ANTI-AFK: OFF", extraY, pages.UtilsPage); extraY = extraY + 38
 local AutoFarmBtn = createToggleButton("🌾 AUTO-FARM: OFF", extraY, pages.UtilsPage); extraY = extraY + 38
 local GodModeBtn = createToggleButton("💀 GOD MODE: OFF", extraY, pages.UtilsPage); extraY = extraY + 38
@@ -1555,15 +1542,10 @@ RunService.Heartbeat:Connect(function()
     end
 end)
 
--- Auto Click e Fast Attack
+-- Loop apenas para Fast Attack (Auto Click removido)
 task.spawn(function()
     while true do
         task.wait(0.05)
-        if autoClickActive then
-            VirtualInputManager:SendMouseButtonEvent(0, 0, 0, true, game, 1)
-            VirtualInputManager:SendMouseButtonEvent(0, 0, 0, false, game, 1)
-            task.wait(autoClickInterval)
-        end
         if fastAttackActive then
             VirtualInputManager:SendMouseButtonEvent(1051, 927, 0, true, game, 1)
             VirtualInputManager:SendMouseButtonEvent(1051, 927, 0, false, game, 1)
@@ -1574,6 +1556,6 @@ end)
 
 StarterGui:SetCore("SendNotification", {
     Title = "⚡ DARKNESSXY HUB ⚡",
-    Text = "Fly GUI V3 integrado! Analógico: CIMA=SOBE, BAIXO=DESCE.",
+    Text = "DARKNESSXY AURA.",
     Duration = 4
 })
